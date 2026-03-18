@@ -1,0 +1,122 @@
+.homework-card {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  transition: all 200ms ease-in-out;
+  position: relative;
+}
+
+.homework-card.completed {
+  opacity: 0.5;
+}
+
+.card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.subject-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.date-center {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.days-right {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.days-right.overdue {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.days-right.today {
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.notes {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 10px 0 0 0;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+}
+
+/* Context Menu */
+.context-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 100;
+  min-width: 160px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.menu-item {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 150ms ease;
+}
+
+.menu-item:hover {
+  background: var(--bg-tertiary);
+}
+
+.menu-item.edit {
+  color: var(--primary);
+}
+
+.menu-item.complete {
+  color: var(--success);
+}
+
+.menu-item.delete {
+  color: var(--error);
+}
+
+.menu-item.cancel {
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  padding-top: 12px;
+  text-align: center;
+}
