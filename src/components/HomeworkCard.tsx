@@ -49,7 +49,7 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
     return colors[hash % colors.length];
   };
 
-  const handleLongPressStart = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleLongPressStart = (_e: React.MouseEvent | React.TouchEvent) => {
     longPressTimer.current = window.setTimeout(() => {
       setShowMenu(true);
     }, 500);
