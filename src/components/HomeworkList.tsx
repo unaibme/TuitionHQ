@@ -1,16 +1,25 @@
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Loader2 } from 'lucide-react';
 import type { Homework } from '../types/homework';
 import { HomeworkCard } from './HomeworkCard';
 import './HomeworkList.css';
 
 interface HomeworkListProps {
   homework: Homework[];
+  isLoading: boolean;
   onToggleComplete: (id: string) => void;
   onDelete: (id: string) => void;
   onEdit: (homework: Homework) => void;
 }
 
-export function HomeworkList({ homework, onToggleComplete, onDelete, onEdit }: HomeworkListProps) {
+export function HomeworkList({ homework, isLoading, onToggleComplete, onDelete, onEdit }: HomeworkListProps) {
+  if (isLoading) {
+    return (
+      <div className="loading-state">
+        <Loader2 size={48} className="loading-spinner" />
+        <p>Loading homework...</p>
+      </div>
+    );
+  }
   if (homework.length === 0) {
     return (
       <div className="empty-state">

@@ -10,7 +10,7 @@ import './App.css';
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingHomework, setEditingHomework] = useState<Homework | null>(null);
-  const { homework, addHomework, toggleComplete, deleteHomework, updateHomework } = useHomework();
+  const { homework, isLoading, addHomework, toggleComplete, deleteHomework, updateHomework } = useHomework();
 
   const handleAdd = () => {
     setEditingHomework(null);
@@ -33,6 +33,7 @@ function App() {
       <main className="main-content">
         <HomeworkList
           homework={homework}
+          isLoading={isLoading}
           onToggleComplete={toggleComplete}
           onDelete={deleteHomework}
           onEdit={handleEdit}
