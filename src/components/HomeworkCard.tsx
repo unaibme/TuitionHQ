@@ -15,7 +15,11 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
   const longPressTimer = useRef<number | null>(null);
 
   const student = getStudentById(homework.studentId);
-  const dueDate = new Date(homework.dueDate);
+  const parseDateOnly = (dateString: string) => {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  };
+  const dueDate = parseDateOnly(homework.dueDate);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   
@@ -31,11 +35,30 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
   };
 
   const getDaysRemaining = () => {
+    const numberToWords = (num: number) => {
+      const ones = [
+        'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+        'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+        'seventeen', 'eighteen', 'nineteen'
+      ];
+      const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+      if (num < 20) return ones[num];
+
+      const tenPart = Math.floor(num / 10);
+      const onePart = num % 10;
+      return onePart === 0 ? tens[tenPart] : `${tens[tenPart]}-${ones[onePart]}`;
+    };
+
     const diffTime = dueDate.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays === 0) return 'Today';
+    if (diffDays === 0) return 'today';
     if (diffDays === 1) return 'Tomorrow';
-    if (diffDays < 0) return `${Math.abs(diffDays)} days ago`;
+    if (diffDays < 0) {
+      const daysAgo = Math.abs(diffDays);
+      const dayWord = numberToWords(daysAgo);
+      return `${dayWord} ${daysAgo === 1 ? 'day' : 'days'} ago`;
+    }
     return `${diffDays} days left`;
   };
 
