@@ -18,6 +18,13 @@
   gap: 12px;
 }
 
+.left-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .subject-badge {
   display: inline-block;
   padding: 6px 12px;
@@ -29,12 +36,27 @@
   flex-shrink: 0;
 }
 
-.date-center {
-  font-size: 14px;
+.date-inline {
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  text-align: center;
   white-space: nowrap;
+}
+
+.student-badge {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border: 1px dashed;
+  background: rgba(255, 255, 255, 0.14);
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  margin: 0 auto;
 }
 
 .days-right {

@@ -35,41 +35,20 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
   };
 
   const getDaysRemaining = () => {
-    const numberToWords = (num: number) => {
-      const ones = [
-        'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
-        'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
-        'seventeen', 'eighteen', 'nineteen'
-      ];
-      const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-
-      if (num < 20) return ones[num];
-
-      const tenPart = Math.floor(num / 10);
-      const onePart = num % 10;
-      return onePart === 0 ? tens[tenPart] : `${tens[tenPart]}-${ones[onePart]}`;
-    };
-
     const diffTime = dueDate.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     if (diffDays === 0) return 'today';
     if (diffDays === 1) return 'Tomorrow';
     if (diffDays < 0) {
       const daysAgo = Math.abs(diffDays);
-      const dayWord = numberToWords(daysAgo);
-      return `${dayWord} ${daysAgo === 1 ? 'day' : 'days'} ago`;
+      return `${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago`;
     }
     return `${diffDays} days left`;
   };
 
   const getSubjectColor = (subject: string) => {
-    const colors = [
-      '#EF4444', '#F97316', '#F59E0B', '#84CC16', '#22C55E', 
-      '#14B8A6', '#06B6D4', '#3B82F6', '#6366F1', '#8B5CF6',
-      '#EC4899', '#F43F5E'
-    ];
-    const hash = subject.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    return colors[hash % colors.length];
+    void subject;
+    return '#FFFFFF';
   };
 
   const handleLongPressStart = (_e: React.MouseEvent | React.TouchEvent) => {
@@ -83,14 +62,6 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
       clearTimeout(longPressTimer.current);
       longPressTimer.current = null;
     }
-  };
-
-  const handleClick = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
-    }
-    setShowMenu(true);
   };
 
   const closeMenu = () => {
@@ -109,21 +80,31 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
       onMouseLeave={handleLongPressEnd}
       onTouchStart={handleLongPressStart}
       onTouchEnd={handleLongPressEnd}
-      onClick={handleClick}
     >
       <div className="card-row">
-        <span 
-          className="subject-badge"
-          style={{ 
-            backgroundColor: getSubjectColor(homework.subject) + '20',
-            borderColor: getSubjectColor(homework.subject),
-            color: getSubjectColor(homework.subject)
+        <div className="left-meta">
+          <span 
+            className="subject-badge"
+            style={{ 
+              backgroundColor: getSubjectColor(homework.subject) + '20',
+              borderColor: getSubjectColor(homework.subject),
+              color: getSubjectColor(homework.subject)
+            }}
+          >
+            {homework.subject}
+          </span>
+          <span className="date-inline">{formatDate(dueDate)}</span>
+        </div>
+        
+        <span
+          className="student-badge"
+          style={{
+            borderColor: student?.color,
+            color: student?.color
           }}
         >
-          {homework.subject}
+          {student?.name}
         </span>
-        
-        <span className="date-center">{formatDate(dueDate)}</span>
         
         <span className={`days-right ${isOverdue ? 'overdue' : ''} ${isDueToday ? 'today' : ''}`}>
           {getDaysRemaining()}

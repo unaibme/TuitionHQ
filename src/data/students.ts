@@ -12,17 +12,15 @@ export const students: Student[] = [
 
 export const subjects = [
   'Math',
-  'English',
+  'English Language',
+  'English Literature',
   'Science',
-  'Physics',
-  'Chemistry',
-  'Biology',
   'History',
   'Geography',
-  'Urdu',
+  'Urdu Language',
+  'Urdu Literature',
+  'Islamiyat',
   'Computer Science',
-  'Art',
-  'Music',
 ];
 
 export const getStudentById = (id: string): Student | undefined => {
