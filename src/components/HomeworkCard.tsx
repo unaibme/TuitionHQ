@@ -37,13 +37,14 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
   const getDaysRemaining = () => {
     const diffTime = dueDate.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays === 0) return 'today';
-    if (diffDays === 1) return 'Tomorrow';
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return '1 day';
     if (diffDays < 0) {
       const daysAgo = Math.abs(diffDays);
-      return `${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago`;
+      return `${daysAgo} days`;
     }
-    return `${diffDays} days left`;
+    return `${diffDays} days`;
+    return `${diffDays} days`;
   };
 
   const getSubjectColor = (subject: string) => {
