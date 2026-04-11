@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import type { Homework } from '../types/homework';
 import { getStudentById } from '../data/students';
 import './HomeworkCard.css';
@@ -12,7 +12,6 @@ interface HomeworkCardProps {
 
 export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: HomeworkCardProps) {
   const [showMenu, setShowMenu] = useState(false);
-  const longPressTimer = useRef<number | null>(null);
 
   const student = getStudentById(homework.studentId);
   const parseDateOnly = (dateString: string) => {
@@ -44,7 +43,6 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
       return `${daysAgo} days`;
     }
     return `${diffDays} days`;
-    return `${diffDays} days`;
   };
 
   const getSubjectColor = (subject: string) => {
@@ -52,16 +50,9 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
     return '#FFFFFF';
   };
 
-  const handleLongPressStart = (_e: React.MouseEvent | React.TouchEvent) => {
-    longPressTimer.current = window.setTimeout(() => {
+  const handleDoubleClick = () => {
+    if (!showMenu) {
       setShowMenu(true);
-    }, 500);
-  };
-
-  const handleLongPressEnd = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
     }
   };
 
@@ -76,11 +67,7 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
         borderColor: student?.color,
         background: `linear-gradient(135deg, ${student?.color}40 0%, var(--bg-secondary) 60%)`
       }}
-      onMouseDown={handleLongPressStart}
-      onMouseUp={handleLongPressEnd}
-      onMouseLeave={handleLongPressEnd}
-      onTouchStart={handleLongPressStart}
-      onTouchEnd={handleLongPressEnd}
+      onDoubleClick={handleDoubleClick}
     >
       <div className="card-row">
         <div className="left-meta">
