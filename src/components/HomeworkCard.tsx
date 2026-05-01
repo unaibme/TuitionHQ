@@ -84,16 +84,6 @@ export function HomeworkCard({ homework, onToggleComplete, onDelete, onEdit }: H
           <span className="date-inline">{formatDate(dueDate)}</span>
         </div>
         
-        <span
-          className="student-badge"
-          style={{
-            borderColor: student?.color,
-            color: student?.color
-          }}
-        >
-          {student?.name}
-        </span>
-        
         <span className={`days-right ${isOverdue ? 'overdue' : ''} ${isDueToday ? 'today' : ''}`}>
           {getDaysRemaining()}
         </span>
